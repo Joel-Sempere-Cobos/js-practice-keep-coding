@@ -5,15 +5,36 @@ console.log()
 console.log('Equipos que participan en el playoff:')
 console.log()
 
-const grupoA = ['Noruega', 'Inglaterra']
-const grupoB = ['España', 'Alemania']
-const grupoC = ['Países Bajos', 'Suiza']
-const grupoD = ['Francia', 'Islandia']
+// DECLARO GRUPOS COMO OBJETOS y los meto en un array
 
-console.log(`GRUPO A: ${grupoA[0]}, ${grupoA[1]}`)
-console.log(`GRUPO B: ${grupoB[0]}, ${grupoB[1]}`)
-console.log(`GRUPO C: ${grupoC[0]}, ${grupoC[1]}`)
-console.log(`GRUPO D: ${grupoD[0]}, ${grupoD[1]}`)
+const grupoA = {
+    name: "Grupo A",
+    teams: ['Noruega', 'Inglaterra'],
+}
+
+const grupoB = {
+    name: "Grupo B",
+    teams: ['España', 'Alemania']
+}
+
+const grupoC = {
+    name: "Grupo C",
+    teams: ['Países Bajos', 'Suiza']
+}
+
+const grupoD = {
+    name: "Grupo D",
+    teams: ['Francia', 'Islandia']
+}
+
+const groups = [grupoA, grupoB, grupoC, grupoD]
+
+
+// MUESTRO LOS EQUIPOS EN CADA GRUPO
+
+for (group of groups){
+    console.log(`${group.name}: ${group.teams[0]}, ${group.teams[1]}`)
+}
 
 console.log()
 console.log('===== CUARTOS DE FINAL =====')
