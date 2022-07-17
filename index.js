@@ -7,7 +7,7 @@ console.log();
 
 // Declarar variables
 
-teamList = []
+let teamList = []
 
 const liga = {
     name: "Euro Women's League",
@@ -63,9 +63,6 @@ teamList.push(portugal)
 
 teamList.sort(function() {return Math.random() - 0.5})
 
-for (team of teamList){
-    console.log(team.name)
-}
 
 
 
@@ -79,12 +76,13 @@ class Grupos {
     }
 }
 
-const grupoA = new Grupos("Grupo A", ["Noruega", "Inglaterra"]);
-const grupoB = new Grupos("Grupo B", ["España", "Alemania"]);
-const grupoC = new Grupos("Grupo C", ["Países Bajos", "Suiza"]);
-const grupoD = new Grupos("Grupo D", ["Francia", "Islandia"]);
+const grupoA = new Grupos("Grupo A", teamList.splice(0,4));
+const grupoB = new Grupos("Grupo B", teamList.splice(0,4));
+const grupoC = new Grupos("Grupo C", teamList.splice(0,4));
+const grupoD = new Grupos("Grupo D", teamList.splice(0,4));
 
 const groups = [grupoA, grupoB, grupoC, grupoD];
+
 
 // SIMULACIÓN DE PARTIDOS
 
@@ -132,14 +130,15 @@ function match(equipo1, equipo2) {
 
 // MUESTRO LOS EQUIPOS EN CADA GRUPO
 
-for (group of groups) {
-    console.log(`${group.name}: ${group.teams[0]}, ${group.teams[1]}`);
+
+for (let group of groups) {
+    console.log(`${group.name}: ${group.teams[0].name}, ${group.teams[1].name}`);
 }
 
 console.log();
 console.log("===== CUARTOS DE FINAL =====");
 
-match(grupoA.teams[0], grupoB.teams[1]);
-match(grupoB.teams[0], grupoA.teams[1]);
-match(grupoC.teams[0], grupoD.teams[1]);
-match(grupoD.teams[0], grupoC.teams[1]);
+match(grupoA.teams[0].name, grupoB.teams[1].name);
+match(grupoB.teams[0].name, grupoA.teams[1].name);
+match(grupoC.teams[0].name, grupoD.teams[1].name);
+match(grupoD.teams[0].name, grupoC.teams[1].name);
