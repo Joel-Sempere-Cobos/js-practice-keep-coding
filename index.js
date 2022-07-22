@@ -1,11 +1,6 @@
-console.log("====================================================");
-console.log("=== COMIENZAN LAS FASES ELIMINATORIAS DEL TORNEO ===");
-console.log("====================================================");
-console.log();
-console.log("Equipos que participan en el playoff:");
-console.log();
 
-// Declarar variables
+
+// VARIABLES
 
 let teamList = []
 
@@ -15,66 +10,63 @@ const liga = {
     rounds: []
 }
 
-class Team {
-    constructor(name){
-        this.name = name
-        this.points = 0
-        this.goals = 0
-        this.goalsAgainst = 0
-    }
-}
-
-let spain = new Team("España")
-teamList.push(spain)
-let england = new Team("Inglaterra")
-teamList.push(england)
-let netherlands = new Team("Países Bajos")
-teamList.push(netherlands)
-let germany = new Team("Alemania")
-teamList.push(germany)
-
-let denmark = new Team("Dinamarca")
-teamList.push(denmark)
-let normay = new Team("Noruega")
-teamList.push(normay)
-let sweden = new Team("Suecia")
-teamList.push(sweden)
-let france = new Team("Francia")
-teamList.push(france)
-
-let belgium = new Team("Bélgica")
-teamList.push(belgium)
-let iceland = new Team("Islandia")
-teamList.push(iceland)
-let finland = new Team("Finlandia")
-teamList.push(finland)
-let austria = new Team("Austria")
-teamList.push(austria)
-
-let italy = new Team("Italia")
-teamList.push(italy)
-let switzerland = new Team("Suiza")
-teamList.push(switzerland)
-let northernIreland = new Team("Irlanda del Norte")
-teamList.push(northernIreland)
-let portugal = new Team("Portugal")
-teamList.push(portugal)
-
-
-teamList.sort(function() {return Math.random() - 0.5})
-
-
-
-
-
-// DECLARO GRUPOS COMO OBJETOS y los meto en un array
-
 class Grupos {
     constructor(name, teams) {
         this.name = name;
         this.teams = teams;
     }
 }
+
+import {Team} from './classes/Teams.js'
+
+
+let spain = new Team("España")
+let england = new Team("Inglaterra")
+let netherlands = new Team("Países Bajos")
+let germany = new Team("Alemania")
+let denmark = new Team("Dinamarca")
+let normay = new Team("Noruega")
+let sweden = new Team("Suecia")
+let france = new Team("Francia")
+let belgium = new Team("Bélgica")
+let iceland = new Team("Islandia")
+let finland = new Team("Finlandia")
+let austria = new Team("Austria")
+let italy = new Team("Italia")
+let switzerland = new Team("Suiza")
+let northernIreland = new Team("Irlanda del Norte")
+let portugal = new Team("Portugal")
+
+
+
+let team1
+let team2
+
+
+// PROCESOS
+
+
+teamList.push(spain)
+teamList.push(england)
+teamList.push(netherlands)
+teamList.push(germany)
+teamList.push(denmark)
+teamList.push(normay)
+teamList.push(sweden)
+teamList.push(france)
+teamList.push(belgium)
+teamList.push(iceland)
+teamList.push(finland)
+teamList.push(austria)
+teamList.push(italy)
+teamList.push(switzerland)
+teamList.push(northernIreland)
+teamList.push(portugal)
+
+teamList.sort(function() {return Math.random() - 0.5})
+
+
+
 
 const grupoA = new Grupos("Grupo A", teamList.splice(0,4));
 const grupoB = new Grupos("Grupo B", teamList.splice(0,4));
@@ -115,20 +107,45 @@ function match(equipo1, equipo2) {
         }
     }
 
-    const winner = whoWins(equipo1, equipo2);
     function whoWins(equipo1, equipo2) {
         if (count1 > count2) {
-        return equipo1;
+            return equipo1;
         } else {
-        return equipo2;
+            return equipo2;
         }
     }
+    const winner = whoWins(equipo1, equipo2);
 
     console.log(`${equipo1} ${count1} - ${count2} ${equipo2} => ${winner} `);
-    return count1, count2;
 }
 
-// MUESTRO LOS EQUIPOS EN CADA GRUPO
+
+
+// PRESENTACIÓN
+
+
+console.log("Grupos y equipos")
+console.log("===============================")
+
+for (let group of groups) {
+    console.log(`${group.name}
+-----------------------`);
+    for (let team of group.teams){
+        console.log(team.name)
+    }
+    console.log()
+}
+
+
+
+
+console.log("====================================================");
+console.log("=== COMIENZAN LAS FASES ELIMINATORIAS DEL TORNEO ===");
+console.log("====================================================");
+console.log();
+console.log("Equipos que participan en el playoff:");
+console.log();
+
 
 
 for (let group of groups) {
@@ -142,3 +159,6 @@ match(grupoA.teams[0].name, grupoB.teams[1].name);
 match(grupoB.teams[0].name, grupoA.teams[1].name);
 match(grupoC.teams[0].name, grupoD.teams[1].name);
 match(grupoD.teams[0].name, grupoC.teams[1].name);
+
+console.log();
+console.log("===== SEMIFINALES =====");
