@@ -4,7 +4,7 @@ let teamList = [];
 
 const liga = {
     name: "Euro Women's League",
-    teams: teamList
+    teams: teamList,
 };
 
 class Grupos {
@@ -68,10 +68,68 @@ const groups = [grupoA, grupoB, grupoC, grupoD];
 
 // SIMULACIÓN DE PARTIDOS
 
-
-//TODO sacar de la función el console.log y al gol de oro
-
 function match(equipo1, equipo2) {
+    let count1 = 0;
+    let count2 = 0;
+    let timmer = 0;
+
+    const team1min = 0.62;
+    const teamChange = 0.8;
+    const team2max = 0.98;
+
+    function contarGoles() {
+        const randomNum = Math.random();
+        if (team1min < randomNum && randomNum < teamChange) {
+            count1++;
+        } else if (teamChange < randomNum && randomNum < team2max) {
+            count2++;
+        }
+    }
+
+    while (timmer < 10) {
+        contarGoles();
+        timmer++;
+    }
+
+    function whoWins(equipo1, equipo2) {
+            equipo1.config.goals += count1;
+            equipo1.config.goalsAgainst += count2;
+            equipo2.config.goals += count2;
+            equipo2.config.goalsAgainst += count1;
+
+        if (count1 > count2) {
+            equipo1.config.points += 3;
+            return equipo1;
+
+        } else if (count1 < count2) {
+            equipo2.config.points += 3;
+            return equipo2;
+
+        } else {
+            equipo1.config.points += 1;
+            equipo2.config.points += 1;
+        }
+    }
+
+    function whoLose(equipo1, equipo2) {
+        if (count1 < count2) {
+            return equipo1;
+        } else {
+            return equipo2;
+        }
+    }
+
+    const winner = whoWins(equipo1, equipo2);
+    const loser = whoLose(equipo1, equipo2);
+
+    console.log(
+        `${equipo1.name} ${count1} - ${count2} ${equipo2.name}`
+    );
+
+    return { winner, loser };
+}
+
+function matchNoDraw(equipo1, equipo2) {
     let count1 = 0;
     let count2 = 0;
     let timmer = 0;
@@ -100,14 +158,14 @@ function match(equipo1, equipo2) {
 
     function whoWins(equipo1, equipo2) {
         if (count1 > count2) {
-            equipo1.config.points += 3
-            equipo1.config.goals += count1
-            equipo1.config.goalsAgainst += count2
+            equipo1.config.points += 3;
+            equipo1.config.goals += count1;
+            equipo1.config.goalsAgainst += count2;
             return equipo1;
         } else {
-            equipo2.config.points += 3
-            equipo2.config.goals += count2
-            equipo2.config.goalsAgainst += count1
+            equipo2.config.points += 3;
+            equipo2.config.goals += count2;
+            equipo2.config.goalsAgainst += count1;
             return equipo2;
         }
     }
@@ -123,29 +181,55 @@ function match(equipo1, equipo2) {
     const winner = whoWins(equipo1, equipo2);
     const loser = whoLose(equipo1, equipo2);
 
-    console.log(`${equipo1.name} ${count1} - ${count2} ${equipo2.name} => ${winner.name} `);
+    console.log(
+        `${equipo1.name} ${count1} - ${count2} ${equipo2.name} => ${winner.name} `
+    );
 
     return { winner, loser };
 }
-
-
-
 
 // PRESENTACIÓN
 
 // OPCIONAL
 
-console.log("Grupos y equipos")
-console.log("===============================")
+console.log("Grupos y equipos");
+console.log("===============================");
 
 for (let group of groups) {
     console.log(`${group.name}
 -----------------------`);
-    for (let team of group.teams){
-        console.log(team.name)
+    for (let team of group.teams) {
+        console.log(team.name);
     }
-    console.log()
+    console.log();
+    console.log('Jornada 1:')
+    console.log(`${group.teams[0].name} vs ${group.teams[3].name}`)
+    console.log(`${group.teams[1].name} vs ${group.teams[2].name}`)
+    console.log();
+    console.log('Jornada 2:')
+    console.log(`${group.teams[3].name} vs ${group.teams[2].name}`)
+    console.log(`${group.teams[0].name} vs ${group.teams[1].name}`)
+    console.log();
+    console.log('Jornada 3:')
+    console.log(`${group.teams[1].name} vs ${group.teams[3].name}`)
+    console.log(`${group.teams[2].name} vs ${group.teams[0].name}`)
+    console.log();
 }
+
+console.log("====================================================");
+console.log("======== COMIENZA LA EURO WOMEN’s CUP =========");
+console.log("====================================================");
+
+console.log()
+console.log(`${grupoA.name} - Jornada 1:`)
+console.log("----------------------------")
+match(grupoA.teams[0],grupoA.teams[3])
+match(grupoA.teams[1],grupoA.teams[2])
+
+// TODO ARREGLAR ESTOOOOO
+/* grupoA.teams.sort((a,b) => a.config.points - b.config.points)
+console.table(grupoA)
+console.log() */
 
 
 //OBLIGATORIO
@@ -166,33 +250,33 @@ for (let group of groups) {
 console.log();
 console.log("===== CUARTOS DE FINAL =====");
 
-const c1 = match(grupoA.teams[0], grupoB.teams[1]);
-const c2 = match(grupoB.teams[0], grupoA.teams[1]);
-const c3 = match(grupoC.teams[0], grupoD.teams[1]);
-const c4 = match(grupoD.teams[0], grupoC.teams[1]);
+const c1 = matchNoDraw(grupoA.teams[0], grupoB.teams[1]);
+const c2 = matchNoDraw(grupoB.teams[0], grupoA.teams[1]);
+const c3 = matchNoDraw(grupoC.teams[0], grupoD.teams[1]);
+const c4 = matchNoDraw(grupoD.teams[0], grupoC.teams[1]);
 
 console.log();
 console.log("===== SEMIFINALES =====");
 
-const s1 = match(c1.winner, c3.winner);
-const s2 = match(c2.winner, c4.winner);
+const s1 = matchNoDraw(c1.winner, c3.winner);
+const s2 = matchNoDraw(c2.winner, c4.winner);
 
 console.log();
 console.log("===== TERCER Y CUARTO PUESTO =====");
 
-const thirdPosition = match(s1.loser, s2.loser);
+const thirdPosition = matchNoDraw(s1.loser, s2.loser);
 
 console.log();
 console.log("===== FINAL =====");
 
-const champion = match(s1.winner, s2.winner);
+const champion = matchNoDraw(s1.winner, s2.winner);
 const secondPosition = champion.loser;
 
 console.log();
 console.log("===============================================");
 console.log(`¡${champion.winner.name} campeona de la EURO WOMEN’S CUP!`);
 console.log("===============================================");
-
-console.log(`Points: ${champion.winner.config.points}`)
-console.log(`Goals: ${champion.winner.config.goals}`)
-console.log(`GoalsAgainst: ${champion.winner.config.goalsAgainst}`)
+/* 
+console.log(`Points: ${champion.winner.config.points}`);
+console.log(`Goals: ${champion.winner.config.goals}`);
+console.log(`GoalsAgainst: ${champion.winner.config.goalsAgainst}`); */
