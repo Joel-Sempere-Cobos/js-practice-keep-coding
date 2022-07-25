@@ -4,8 +4,7 @@ let teamList = [];
 
 const liga = {
     name: "Euro Women's League",
-    teams: teamList,
-    rounds: [],
+    teams: teamList
 };
 
 class Grupos {
@@ -69,21 +68,23 @@ const groups = [grupoA, grupoB, grupoC, grupoD];
 
 // SIMULACIÓN DE PARTIDOS
 
+
+//TODO sacar de la función el console.log y al gol de oro
+
 function match(equipo1, equipo2) {
     let count1 = 0;
     let count2 = 0;
     let timmer = 0;
 
-    const team1min = 0.6;
-    const team1max = 0.8;
-    const team2min = 0.8;
-    const team2max = 1;
+    const team1min = 0.62;
+    const teamChange = 0.8;
+    const team2max = 0.98;
 
     function contarGoles() {
         const randomNum = Math.random();
-        if (team1min < randomNum && randomNum < team1max) {
+        if (team1min < randomNum && randomNum < teamChange) {
             count1++;
-        } else if (team2min < randomNum && randomNum < team2max) {
+        } else if (teamChange < randomNum && randomNum < team2max) {
             count2++;
         }
     }
@@ -99,8 +100,14 @@ function match(equipo1, equipo2) {
 
     function whoWins(equipo1, equipo2) {
         if (count1 > count2) {
+            equipo1.config.points += 3
+            equipo1.config.goals += count1
+            equipo1.config.goalsAgainst += count2
             return equipo1;
         } else {
+            equipo2.config.points += 3
+            equipo2.config.goals += count2
+            equipo2.config.goalsAgainst += count1
             return equipo2;
         }
     }
@@ -116,14 +123,19 @@ function match(equipo1, equipo2) {
     const winner = whoWins(equipo1, equipo2);
     const loser = whoLose(equipo1, equipo2);
 
-    console.log(`${equipo1} ${count1} - ${count2} ${equipo2} => ${winner} `);
+    console.log(`${equipo1.name} ${count1} - ${count2} ${equipo2.name} => ${winner.name} `);
 
     return { winner, loser };
 }
 
+
+
+
+// PRESENTACIÓN
+
 // OPCIONAL
 
-/* console.log("Grupos y equipos")
+console.log("Grupos y equipos")
 console.log("===============================")
 
 for (let group of groups) {
@@ -134,7 +146,7 @@ for (let group of groups) {
     }
     console.log()
 }
- */
+
 
 //OBLIGATORIO
 
@@ -154,10 +166,10 @@ for (let group of groups) {
 console.log();
 console.log("===== CUARTOS DE FINAL =====");
 
-const c1 = match(grupoA.teams[0].name, grupoB.teams[1].name);
-const c2 = match(grupoB.teams[0].name, grupoA.teams[1].name);
-const c3 = match(grupoC.teams[0].name, grupoD.teams[1].name);
-const c4 = match(grupoD.teams[0].name, grupoC.teams[1].name);
+const c1 = match(grupoA.teams[0], grupoB.teams[1]);
+const c2 = match(grupoB.teams[0], grupoA.teams[1]);
+const c3 = match(grupoC.teams[0], grupoD.teams[1]);
+const c4 = match(grupoD.teams[0], grupoC.teams[1]);
 
 console.log();
 console.log("===== SEMIFINALES =====");
@@ -168,14 +180,19 @@ const s2 = match(c2.winner, c4.winner);
 console.log();
 console.log("===== TERCER Y CUARTO PUESTO =====");
 
-const subChampion = match(s1.loser, s2.loser);
+const thirdPosition = match(s1.loser, s2.loser);
 
 console.log();
 console.log("===== FINAL =====");
 
 const champion = match(s1.winner, s2.winner);
+const secondPosition = champion.loser;
 
 console.log();
 console.log("===============================================");
-console.log(`¡${champion.winner} campeona de la EURO WOMEN’S CUP!`);
+console.log(`¡${champion.winner.name} campeona de la EURO WOMEN’S CUP!`);
 console.log("===============================================");
+
+console.log(`Points: ${champion.winner.config.points}`)
+console.log(`Goals: ${champion.winner.config.goals}`)
+console.log(`GoalsAgainst: ${champion.winner.config.goalsAgainst}`)
