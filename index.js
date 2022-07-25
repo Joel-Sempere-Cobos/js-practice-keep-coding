@@ -227,9 +227,36 @@ match(grupoA.teams[0],grupoA.teams[3])
 match(grupoA.teams[1],grupoA.teams[2])
 
 // TODO ARREGLAR ESTOOOOO
-/* grupoA.teams.sort((a,b) => a.config.points - b.config.points)
-console.table(grupoA)
-console.log() */
+
+let teamTable = grupoA.teams.map(function (el) {
+    return {
+        name: el.name,
+        points: el.config.points,
+        goals: el.config.goals,
+        goalsAgainst: el.config.goalsAgainst,
+        goalsDif: el.config.goals - el.config.goalsAgainst
+    };
+  });
+
+    teamTable.sort(function(a,b) {
+        if (b.points > a.points) return 1
+        if (b.points < a.points) return -1
+        if (b.points == a.points){
+            if (b.goalsDif > a.goalsDif) return 1
+            if (b.goalsDif < a.goalsDif) return -1
+            if (b.goalsDif == a.goalsDif){
+                if (b.name > a.name) return -1
+                if (b.name < a.name) return 1
+            }
+
+        }
+    })
+    
+
+
+
+console.table(teamTable)
+console.log()
 
 
 //OBLIGATORIO
