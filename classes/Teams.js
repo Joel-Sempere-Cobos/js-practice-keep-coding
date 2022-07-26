@@ -10,7 +10,7 @@ export class Team {
             points: 0,
             goalsAgainst: 0,
             goals: 0,
-            goalsDif: (this.goals - this.goalsAgainst)
+            goalsDif: 0
         }
         this.config = Object.assign(defaultConfig, config)
     }

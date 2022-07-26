@@ -5,6 +5,15 @@ let teamList = [];
 const liga = {
     name: "Euro Women's League",
     teams: teamList,
+    jornadas: [{
+        name: 'Jornada 1',
+        matchSchedule: [0,3,1,2]},
+        {
+        name:'Jornada 2',
+        matchSchedule: [3,2,0,1]}, 
+        {
+        name: 'Jornada 3',
+        matchSchedule: [1,3,2,0]}]
 };
 
 class Grupos {
@@ -94,8 +103,10 @@ function match(equipo1, equipo2) {
     function whoWins(equipo1, equipo2) {
             equipo1.config.goals += count1;
             equipo1.config.goalsAgainst += count2;
+            equipo1.config.goalsDif += count1-count2;
             equipo2.config.goals += count2;
             equipo2.config.goalsAgainst += count1;
+            equipo2.config.goalsDif += count2-count1;
 
         if (count1 > count2) {
             equipo1.config.points += 3;
@@ -161,11 +172,14 @@ function matchNoDraw(equipo1, equipo2) {
             equipo1.config.points += 3;
             equipo1.config.goals += count1;
             equipo1.config.goalsAgainst += count2;
+            equipo1.config.goalsDif += count1-count2;
             return equipo1;
         } else {
             equipo2.config.points += 3;
             equipo2.config.goals += count2;
             equipo2.config.goalsAgainst += count1;
+            equipo2.config.goalsDif += count2-count1;
+
             return equipo2;
         }
     }
@@ -202,61 +216,69 @@ for (let group of groups) {
         console.log(team.name);
     }
     console.log();
-    console.log('Jornada 1:')
-    console.log(`${group.teams[0].name} vs ${group.teams[3].name}`)
-    console.log(`${group.teams[1].name} vs ${group.teams[2].name}`)
-    console.log();
-    console.log('Jornada 2:')
-    console.log(`${group.teams[3].name} vs ${group.teams[2].name}`)
-    console.log(`${group.teams[0].name} vs ${group.teams[1].name}`)
-    console.log();
-    console.log('Jornada 3:')
-    console.log(`${group.teams[1].name} vs ${group.teams[3].name}`)
-    console.log(`${group.teams[2].name} vs ${group.teams[0].name}`)
-    console.log();
+    for (let jornada of liga.jornadas){
+        console.log(jornada.name)
+        console.log(`${group.teams[jornada.matchSchedule[0]].name} vs ${group.teams[jornada.matchSchedule[1]].name}`)
+        console.log(`${group.teams[jornada.matchSchedule[2]].name} vs ${group.teams[jornada.matchSchedule[3]].name}`)
+        console.log();
+    }
 }
 
 console.log("====================================================");
-console.log("======== COMIENZA LA EURO WOMEN’s CUP =========");
+console.log("=========== COMIENZA LA EURO WOMEN’s CUP ===========");
 console.log("====================================================");
-
 console.log()
-console.log(`${grupoA.name} - Jornada 1:`)
-console.log("----------------------------")
-match(grupoA.teams[0],grupoA.teams[3])
-match(grupoA.teams[1],grupoA.teams[2])
 
-// TODO ARREGLAR ESTOOOOO
+for (let jornada of liga.jornadas){
+    for (let group of groups){
+        console.log(`${group.name} - ${jornada.name}:`)
+        console.log("----------------------------")
+        match(group.teams[jornada.matchSchedule[0]],group.teams[jornada.matchSchedule[1]])
+        match(group.teams[jornada.matchSchedule[2]],group.teams[jornada.matchSchedule[3]])
+        console.log()
 
-let teamTable = grupoA.teams.map(function (el) {
-    return {
-        name: el.name,
-        points: el.config.points,
-        goals: el.config.goals,
-        goalsAgainst: el.config.goalsAgainst,
-        goalsDif: el.config.goals - el.config.goalsAgainst
-    };
-  });
-
-    teamTable.sort(function(a,b) {
-        if (b.points > a.points) return 1
-        if (b.points < a.points) return -1
-        if (b.points == a.points){
-            if (b.goalsDif > a.goalsDif) return 1
-            if (b.goalsDif < a.goalsDif) return -1
-            if (b.goalsDif == a.goalsDif){
-                if (b.name > a.name) return -1
-                if (b.name < a.name) return 1
+        group.teams.sort(function(a,b) {
+            if (b.config.points > a.config.points) return 1
+            if (b.config.points < a.config.points) return -1
+            if (b.config.points == a.config.points){
+                if (b.config.goalsDif > a.config.goalsDif) return 1
+                if (b.config.goalsDif < a.config.goalsDif) return -1
+                if (b.config.goalsDif == a.config.goalsDif){
+                    if (b.name > a.name) return -1
+                    if (b.name < a.name) return 1
+                }
+        
             }
+        })
 
-        }
-    })
-    
+        let teamTable = group.teams.map(function (team) {
+            return {
+                "Equipo": team.name,
+                "Puntos": team.config.points,
+                "Goles a favor": team.config.goals,
+                "Goles en contra": team.config.goalsAgainst,
+                "Diferencia de goles": team.config.goalsDif
+            };
+        });
 
+        teamTable.sort(function(a,b) {
+            if (b.points > a.points) return 1
+            if (b.points < a.points) return -1
+            if (b.points == a.points){
+                if (b.goalsDif > a.goalsDif) return 1
+                if (b.goalsDif < a.goalsDif) return -1
+                if (b.goalsDif == a.goalsDif){
+                    if (b.name > a.name) return -1
+                    if (b.name < a.name) return 1
+                }
+        
+            }
+        })
 
-
-console.table(teamTable)
-console.log()
+        console.table(teamTable)
+        console.log()
+    }
+}
 
 
 //OBLIGATORIO
@@ -265,7 +287,7 @@ console.log("====================================================");
 console.log("=== COMIENZAN LAS FASES ELIMINATORIAS DEL TORNEO ===");
 console.log("====================================================");
 console.log();
-console.log("Equipos que participan en el playoff:");
+console.log("Equipos que participan en team playoff:");
 console.log();
 
 for (let group of groups) {
