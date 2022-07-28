@@ -238,6 +238,7 @@ console.log("=========== COMIENZA LA EURO WOMEN’s CUP ===========");
 console.log("====================================================");
 console.log();
 
+
 for (let jornada of liga.jornadas) {
     for (let group of groups) {
         console.log(`${group.name} - ${jornada.name}:`);
@@ -252,23 +253,10 @@ for (let jornada of liga.jornadas) {
         );
         console.log();
 
-        group.teams.sort(function (a, b) {
-            if (b.config.points > a.config.points) return 1;
-            if (b.config.points < a.config.points) return -1;
-            if (b.config.points == a.config.points) {
-                if (b.config.goalsDif > a.config.goalsDif) return 1;
-                if (b.config.goalsDif < a.config.goalsDif) return -1;
-                if (b.config.goalsDif == a.config.goalsDif) {
-                    if (b.name > a.name) return -1;
-                    if (b.name < a.name) return 1;
-                }
-            }
-        });
-
         let teamTable = group.teams.map(function (team) {
             return {
-                Equipo: team.name,
-                Puntos: team.config.points,
+                "Equipo": team.name,
+                "Puntos": team.config.points,
                 "Goles a favor": team.config.goals,
                 "Goles en contra": team.config.goalsAgainst,
                 "Diferencia de goles": team.config.goalsDif,
@@ -276,14 +264,14 @@ for (let jornada of liga.jornadas) {
         });
 
         teamTable.sort(function (a, b) {
-            if (b.points > a.points) return 1;
-            if (b.points < a.points) return -1;
-            if (b.points == a.points) {
-                if (b.goalsDif > a.goalsDif) return 1;
-                if (b.goalsDif < a.goalsDif) return -1;
-                if (b.goalsDif == a.goalsDif) {
-                    if (b.name > a.name) return -1;
-                    if (b.name < a.name) return 1;
+            if (b["Puntos"] > a["Puntos"]) return 1;
+            if (b["Puntos"] < a["Puntos"]) return -1;
+            if (b["Puntos"] == a["Puntos"]) {
+                if (b["Diferencia de goles"] > a["Diferencia de goles"]) return 1;
+                if (b["Diferencia de goles"] < a["Diferencia de goles"]) return -1;
+                if (b["Diferencia de goles"] == a["Diferencia de goles"]) {
+                    if (b["Equipo"] > a["Equipo"]) return -1;
+                    if (b["Equipo"] < a["Equipo"]) return 1;
                 }
             }
         });
@@ -291,6 +279,22 @@ for (let jornada of liga.jornadas) {
         console.table(teamTable);
         console.log();
     }
+}
+
+for (let group of groups){
+
+    group.teams.sort(function (a, b) {
+        if (b.config.points > a.config.points) return 1;
+        if (b.config.points < a.config.points) return -1;
+        if (b.config.points == a.config.points) {
+            if (b.config.goalsDif > a.config.goalsDif) return 1;
+            if (b.config.goalsDif < a.config.goalsDif) return -1;
+            if (b.config.goalsDif == a.config.goalsDif) {
+                if (b.name > a.name) return -1;
+                if (b.name < a.name) return 1;
+            }
+        }
+    });
 }
 
 //OBLIGATORIO
