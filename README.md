@@ -21,9 +21,11 @@ En los playoff la función retorna un objeto con las propiedades ``winner`` y ``
 
 Pongo aquí algunos de los problemas que más tiempo me ha tomado "resolver" (entrecomillado porque no lo he hecho de la manera más limpia o elegante...)
 
-* En la función de simulación de partidos hay muchas pequeñas funciones que no he sabido "extraer". Como utilizan variables en común o una utiliza los resultados de otra, cada vez que intento sacarlas para intentar hacer el código más legible me falla por un lado o por otro.
-El resultado con esas funciones larguísimas.
+* En la función de simulación de partidos hay muchas pequeñas funciones que no he sabido "extraer" en funciones independientes para luego hacer callbacks. Como utilizan variables en común o una utiliza los resultados de otra, cada vez que intento sacarlas para intentar hacer el código más legible me falla por un lado o por otro.
+El resultado son esas funciones larguísimas...
 
 + En la misma línea, la función de ordenar que utilizo por un lado para las tablas de las jornadas y por otro para la lista "principal" de grupos para que pasen correctamente a los playoffs no he sabido extraerla como una sola función que se adapte a cada uno de los dos contextos.
+
+A ver si me puedes ayudar a ver qué es lo que no estoy entendiendo :)
 
 ¡Muchas gracias!
