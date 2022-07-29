@@ -23,7 +23,7 @@ let finland = new Team("Finlandia");
 let austria = new Team("Austria");
 let italy = new Team("Italia");
 let switzerland = new Team("Suiza");
-let northernIreland = new Team("Irlanda del Norte");
+let northernIreland = new Team("Irlanda del N.");
 let portugal = new Team("Portugal");
 
 // Los meto en teamList
@@ -207,3 +207,16 @@ console.log();
 console.log("===============================================");
 console.log(`¡${champion.winner.name} campeona de la ${league.name}!`);
 console.log("===============================================");
+
+// EXTRA: Podium con los 3 primeros puestos :D
+console.log(`
+                        ${champion.winner.name}
+                     _______________
+    ${secondPosition.name}
+ _______________    |               |
+|               |   |               |       ${thirdPosition.winner.name}
+|               |   |       1       |    _______________
+|       2       |   |               |   |               |
+|               |   |               |   |       3       |
+_________________________________________________________
+`)
