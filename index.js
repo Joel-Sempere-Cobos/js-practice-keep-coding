@@ -3,8 +3,8 @@
 import { Groups } from "./classes/Groups.js";
 import { Team } from "./classes/Teams.js";
 import { Leagues } from "./classes/Leagues.js";
-import { match } from "./modules/functions.js";
-import { matchNoDraw } from "./modules/functions.js";
+import { match } from "./modules/match.js";
+import { matchNoDraw } from "./modules/matchNoDraw.js";
 
 // DATOS (league, equipos, grupos...)
 
