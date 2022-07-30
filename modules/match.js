@@ -3,11 +3,10 @@ export function match(equipo1, equipo2) {
     let count2 = 0;
     let timmer = 0;
 
-    const team1min = 0.62;
-    const teamChange = 0.8;
-    const team2max = 0.98;
-
     function contarGoles() {
+        const team1min = 0.62;
+        const teamChange = 0.8;
+        const team2max = 0.98;
         const randomNum = Math.random();
         if (team1min < randomNum && randomNum < teamChange) {
             count1++;

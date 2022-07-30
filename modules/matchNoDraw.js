@@ -3,11 +3,10 @@ export function matchNoDraw(equipo1, equipo2) {
     let count2 = 0;
     let timmer = 0;
 
-    const team1min = 0.62;
-    const teamChange = 0.8;
-    const team2max = 0.98;
-
     function contarGoles() {
+        const team1min = 0.62;
+        const teamChange = 0.8;
+        const team2max = 0.98;
         const randomNum = Math.random();
         if (team1min < randomNum && randomNum < teamChange) {
             count1++;
@@ -27,17 +26,8 @@ export function matchNoDraw(equipo1, equipo2) {
 
     function whoWins(equipo1, equipo2) {
         if (count1 > count2) {
-            equipo1.config.points += 3;
-            equipo1.config.goals += count1;
-            equipo1.config.goalsAgainst += count2;
-            equipo1.config.goalsDif += count1 - count2;
             return equipo1;
         } else {
-            equipo2.config.points += 3;
-            equipo2.config.goals += count2;
-            equipo2.config.goalsAgainst += count1;
-            equipo2.config.goalsDif += count2 - count1;
-
             return equipo2;
         }
     }

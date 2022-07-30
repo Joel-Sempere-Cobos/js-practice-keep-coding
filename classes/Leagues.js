@@ -1,8 +1,8 @@
 export class Leagues {
-    constructor (name, teams, groups){
-        this.name = name,
-        this.teams = teams,
-        this.groups = groups,
+    constructor(name, teams, groups) {
+        this.name = name;
+        this.teams = teams;
+        this.groups = groups;
         this.matchDays = [
             {
                 name: "Jornada 1",
@@ -15,7 +15,7 @@ export class Leagues {
             {
                 name: "Jornada 3",
                 matchSchedule: [1, 3, 2, 0],
-            }
-        ]
+            },
+        ];
     }
 }

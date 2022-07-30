@@ -116,8 +116,8 @@ for (let matchDay of league.matchDays) {
         // NOTA: hago una copia para evitar que al reordenarse los equipos me cambie los partidos también
         let teamTable = group.teams.map(function (team) {
             return {
-                Equipo: team.name,
-                Puntos: team.config.points,
+                "Equipo": team.name,
+                "Puntos": team.config.points,
                 "Goles a favor": team.config.goals,
                 "Goles en contra": team.config.goalsAgainst,
                 "Diferencia de goles": team.config.goalsDif,
@@ -219,4 +219,4 @@ console.log(`
 |       2       |   |               |   |               |
 |               |   |               |   |       3       |
 _________________________________________________________
-`)
+`);

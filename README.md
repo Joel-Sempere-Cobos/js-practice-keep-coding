@@ -30,7 +30,7 @@ Por probar, he añadido al final un "podium" con los 3 primeros puestos... 😅
 Pongo aquí algunos de los problemas que más tiempo me ha tomado "resolver" (entrecomillado porque no lo he hecho de la manera más limpia o elegante...)
 
 * En la función de simulación de partidos hay muchas pequeñas funciones que no he sabido "extraer" en funciones independientes para luego hacer callbacks. Como utilizan variables en común o una utiliza los resultados de otra, cada vez que intento sacarlas para intentar hacer el código más legible me falla por un lado o por otro.
-Por eso he tenido que copiar la misma función dos veces añadiendo solo la restricción de empate a una de ellas... pero sospecho que se puede hacer mucho mejor.
+Por eso he tenido que copiar prácticamente la misma función dos veces añadiendo la restricción de empate a una de ellas... pero sospecho que se puede hacer mucho mejor.
 
 + En la misma línea, la función de ordenar que utilizo por un lado para las tablas de las jornadas y por otro para la lista "principal" de grupos para que pasen correctamente a los playoffs no he sabido extraerla como una sola función que se adapte a cada uno de los dos contextos.
 
