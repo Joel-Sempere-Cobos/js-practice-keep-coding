@@ -3,7 +3,7 @@ export function match(equipo1, equipo2) {
     let count2 = 0;
     let timmer = 0;
 
-    function contarGoles() {
+    function goalsGenerator() {
         const team1min = 0.62;
         const teamChange = 0.8;
         const team2max = 0.98;
@@ -16,7 +16,7 @@ export function match(equipo1, equipo2) {
     }
 
     while (timmer < 10) {
-        contarGoles();
+        goalsGenerator();
         timmer++;
     }
 
@@ -40,7 +40,7 @@ export function match(equipo1, equipo2) {
         }
     }
 
-    function whoLose(equipo1, equipo2) {
+    function whoLoses(equipo1, equipo2) {
         if (count1 < count2) {
             return equipo1;
         } else {
@@ -49,7 +49,7 @@ export function match(equipo1, equipo2) {
     }
 
     const winner = whoWins(equipo1, equipo2);
-    const loser = whoLose(equipo1, equipo2);
+    const loser = whoLoses(equipo1, equipo2);
 
     console.log(`${equipo1.name} ${count1} - ${count2} ${equipo2.name}`);
 
